@@ -8,7 +8,7 @@ body {
     width: 100%;
     padding: 10px;
 }
-.header ul {
+.header ol {
     list-style-type: none;
     display: flex;
     justify-content: space-around;

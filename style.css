@@ -1,0 +1,72 @@
+body {
+    font-family: Inter, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #ff6347;
+}
+.header {
+    width: 100%;
+    padding: 10px;
+}
+.header ol {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+    margin: 1%;
+}
+.header li {
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    color: white;
+}
+.home-item {
+    font-weight: 600;
+    color: red;
+}
+.logo {
+    font-weight: 800;
+}
+.container {
+    display: flex;
+    gap: 20px;
+}
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.right-column {
+    flex: 2;
+}
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+h2 {
+    margin-top: 0;
+}
+.filters label {
+    display: block;
+    margin-bottom: 5px;
+}
+.filters input[type="text"], .filters input[type="date"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.crime-map {
+    height: 480px;
+    background-color: #f0f0f0;
+}
+.add-marker-form {
+    margin-top: 20px;
+}
+.add-marker-form input, .add-marker-form textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}

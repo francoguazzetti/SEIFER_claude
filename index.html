@@ -4,85 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crime Map Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #ff6347;
-        }
-        .container {
-            display: flex;
-            gap: 20px;
-        }
-        .left-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .right-column {
-            flex: 2;
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            margin-top: 0;
-        }
-        .filters label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .filters input[type="text"], .filters input[type="date"] {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .crime-map {
-            height: 400px;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            color: #999;
-        }
-        .statistics {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .stat {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-        }
-        .legend {
-            display: flex;
-            justify-content: flex-start;
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header class="header">
+        <ol>
+            <li class="logo">Seifer</li>
+            <li class="home-item">Home</li>
+            <li>Feedback</li>
+        </ol>
+    </header>
     <div class="container">
         <div class="left-column">
             <div class="card filters">
@@ -124,23 +55,17 @@
         <div class="right-column">
             <div class="card">
                 <h2>Crime Map</h2>
-                <div class="crime-map">Map</div>
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: red;"></div>
-                        Theft
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: blue;"></div>
-                        Assault
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: green;"></div>
-                        Burglary
-                    </div>
+                <div id="map" class="crime-map"></div>
+                <div class="add-marker-form">
+                    <h3>Add Marker</h3>
+                    <input type="text" id="address" placeholder="Address">
+                    <textarea id="description" placeholder="Description"></textarea>
+                    <button onclick="addMarker()">Add Marker</button>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo_g15mlkjTv5od1NiUMMs_oqbBOzwW54&callback=initMap" async defer></script>
+    <script src="scripts.js"></script>
 </body>
 </html>

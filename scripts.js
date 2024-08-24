@@ -4,7 +4,7 @@ let geocoder;
 function initMap() {
     // Initialize the map
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -34.397, lng: 150.644 },
+        center: { lat: -34.397, lng:-58.6 },
         zoom: 8
     });
 

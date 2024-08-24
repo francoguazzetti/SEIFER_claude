@@ -1,35 +1,42 @@
-// Function to add a marker
-async function addMarker() {
+let map;
+let geocoder;
+
+function initMap() {
+    // Initialize the map
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8
+    });
+
+    // Initialize the geocoder
+    geocoder = new google.maps.Geocoder();
+}
+
+function addMarker() {
     const address = document.getElementById('address').value;
     const description = document.getElementById('description').value;
 
     if (address && description) {
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, async (results, status) => {
+        geocoder.geocode({ 'address': address }, function(results, status) {
             if (status === 'OK') {
-                const latitude = results[0].geometry.location.lat();
-                const longitude = results[0].geometry.location.lng();
+                const position = results[0].geometry.location;
+                const marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: description
+                });
 
-                try {
-                    const response = await fetch('/api/markers', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ address, description, latitude, longitude })
-                    });
+                const infowindow = new google.maps.InfoWindow({
+                    content: description
+                });
 
-                    if (response.ok) {
-                        document.getElementById('address').value = '';
-                        document.getElementById('description').value = '';
-                        fetchMarkers(); // Refresh markers on the map
-                    } else {
-                        alert('Failed to add marker.');
-                    }
-                } catch (error) {
-                    console.error('Error adding marker:', error);
-                    alert('An error occurred while adding the marker.');
-                }
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+
+                // Clear the form
+                document.getElementById('address').value = '';
+                document.getElementById('description').value = '';
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -39,31 +46,4 @@ async function addMarker() {
     }
 }
 
-// Function to fetch and display markers
-async function fetchMarkers() {
-    try {
-        const response = await fetch('/api/markers');
-        const markers = await response.json();
-        markers.forEach(marker => {
-            const position = { lat: marker.latitude, lng: marker.longitude };
-            const mapMarker = new google.maps.Marker({
-                position: position,
-                map: map,
-                title: marker.description
-            });
-
-            const infowindow = new google.maps.InfoWindow({
-                content: marker.description
-            });
-
-            mapMarker.addListener('click', function() {
-                infowindow.open(map, mapMarker);
-            });
-        });
-    } catch (error) {
-        console.error('Error fetching markers:', error);
-        alert('An error occurred while fetching markers.');
-    }
-}
-
-document.addEventListener('DOMContentLoaded', fetchMarkers);
+document.addEventListener('DOMContentLoaded', initMap);
